@@ -214,7 +214,7 @@ class FactoryTestAppMock
             $name = 'View';
         }
 
-        return 'atk4\test\\'.$name;
+        return 'atk4\test\\' . $name;
     }
 }
 // @codingStandardsIgnoreEnd

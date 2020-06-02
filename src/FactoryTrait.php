@@ -202,7 +202,7 @@ trait FactoryTrait
 
         // Add prefix only if name doesn't start with / and name doesn't contain \\
         if ($name[0] != '/' && $name[0] != '\\' && $prefix) {
-            $name = $prefix.'\\'.$name;
+            $name = $prefix . '\\' . $name;
         }
 
         if (

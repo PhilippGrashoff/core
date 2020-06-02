@@ -429,7 +429,8 @@ class SeedTest extends \PHPUnit_Framework_TestCase
     {
         $s1 = $this->factory(
             ['atk4/core/tests/SeedDITestMock', 'foo'=>['Button', 'icon'=>'red']],
-            ['foo'=> ['Label', 'red']]);
+            ['foo'=> ['Label', 'red']]
+        );
 
         $this->assertEquals(['Button', 'icon'=>'red'], $s1->foo);
 

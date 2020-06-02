@@ -31,7 +31,8 @@ class Exception extends \Exception
     public function __construct(
         $message = '',
         $code = 0,
-        /* \Throwable */ $previous = null
+        /* \Throwable */ 
+        $previous = null
     ) {
         if (is_array($message)) {
             // message contain additional parameters
@@ -84,12 +85,12 @@ class Exception extends \Exception
     public function getColorfulText()
     {
         $output = "\033[1;31m--[ Agile Toolkit Exception ]---------------------------\n";
-        $output .= get_class($this).": \033[47m".$this->getMessage()."\033[0;31m".
-            ($this->getCode() ? ' [code: '.$this->getCode().']' : '');
+        $output .= get_class($this) . ": \033[47m" . $this->getMessage() . "\033[0;31m" .
+            ($this->getCode() ? ' [code: ' . $this->getCode() . ']' : '');
 
         foreach ($this->params as $key => $val) {
             $key = str_pad($key, 19, ' ', STR_PAD_LEFT);
-            $output .= "\n".$key.': '.$this->toString($val);
+            $output .= "\n" . $key . ': ' . $this->toString($val);
         }
 
         $output .= "\n\033[0mStack Trace: ";
@@ -114,22 +115,22 @@ class Exception extends \Exception
 
             $line = str_pad(@$call['line'], 4, ' ', STR_PAD_LEFT);
 
-            $output .= "\n\033[0;34m".$file."\033[0m";
-            $output .= ":\033[0;31m".$line."\033[0m";
+            $output .= "\n\033[0;34m" . $file . "\033[0m";
+            $output .= ":\033[0;31m" . $line . "\033[0m";
 
             if (isset($call['object'])) {
                 $name = (!isset($call['object']->name)) ? get_class($call['object']) : $call['object']->name;
-                $output .= " - \033[0;32m".$name."\033[0m";
+                $output .= " - \033[0;32m" . $name . "\033[0m";
             }
 
             $output .= " \033[0;32m";
 
             if (isset($call['class'])) {
-                $output .= $call['class'].'::';
+                $output .= $call['class'] . '::';
             }
 
             if ($escape_frame) {
-                $output .= "\033[0,31m".$call['function'];
+                $output .= "\033[0,31m" . $call['function'];
                 $escape_frame = false;
 
                 $args = [];
@@ -137,9 +138,9 @@ class Exception extends \Exception
                     $args[] = $this->toString($arg);
                 }
 
-                $output .= "\n".str_repeat(' ', 20)."\033[0,31m(".implode(', ', $args);
+                $output .= "\n" . str_repeat(' ', 20) . "\033[0,31m(" . implode(', ', $args);
             } else {
-                $output .= "\033[0,33m".$call['function'].'(';
+                $output .= "\033[0,33m" . $call['function'] . '(';
             }
 
             $output .= ')';
@@ -147,15 +148,15 @@ class Exception extends \Exception
 
         if ($p = $this->getPrevious()) {
             $output .= "\n\033[0mCaused by Previous Exception:\n";
-            $output .= "\033[1;31m".get_class($p).': '.$p->getMessage()."\033[0;31m".
-                ($p->getCode() ? ' [code: '.$p->getCode().']' : '');
+            $output .= "\033[1;31m" . get_class($p) . ': ' . $p->getMessage() . "\033[0;31m" .
+                ($p->getCode() ? ' [code: ' . $p->getCode() . ']' : '');
         }
 
         // next print params
 
         $output .= "\n\033[1;31m--------------------------------------------------------\n";
 
-        return $output."\033[0m";
+        return $output . "\033[0m";
     }
 
     /**
@@ -166,12 +167,12 @@ class Exception extends \Exception
     public function getHTMLText()
     {
         $output = "--[ Agile Toolkit Exception ]---------------------------\n";
-        $output .= get_class($this).": <font color='pink'><b>".$this->getMessage().'</b></font>'.
-            ($this->getCode() ? ' [code: '.$this->getCode().']' : '');
+        $output .= get_class($this) . ": <font color='pink'><b>" . $this->getMessage() . '</b></font>' .
+            ($this->getCode() ? ' [code: ' . $this->getCode() . ']' : '');
 
         foreach ($this->params as $key => $val) {
             $key = str_pad($key, 19, ' ', STR_PAD_LEFT);
-            $output .= "\n".$key.': '.$this->toString($val);
+            $output .= "\n" . $key . ': ' . $this->toString($val);
         }
 
         $output .= "\nStack Trace: ";
@@ -196,23 +197,23 @@ class Exception extends \Exception
 
             $line = str_pad(@$call['line'], 4, ' ', STR_PAD_LEFT);
 
-            $output .= "\n<font color='cyan'>".$file.'</font>';
-            $output .= ":<font color='pink'>".$line.'</font>';
+            $output .= "\n<font color='cyan'>" . $file . '</font>';
+            $output .= ":<font color='pink'>" . $line . '</font>';
 
             if (isset($call['object'])) {
                 $name = (!isset($call['object']->name)) ? get_class($call['object']) : $call['object']->name;
-                $output .= " - <font color='yellow'>".$name.'</font>';
+                $output .= " - <font color='yellow'>" . $name . '</font>';
             }
 
             $output .= " <font color='gray'>";
 
             if (isset($call['class'])) {
-                $output .= $call['class'].'::';
+                $output .= $call['class'] . '::';
             }
             $output .= '</font>';
 
             if ($escape_frame) {
-                $output .= "<font color='pink'>".$call['function'].'</font>';
+                $output .= "<font color='pink'>" . $call['function'] . '</font>';
                 $escape_frame = false;
 
                 $args = [];
@@ -220,9 +221,9 @@ class Exception extends \Exception
                     $args[] = $this->toString($arg);
                 }
 
-                $output .= "\n".str_repeat(' ', 20)."<font color='pink'>(".implode(', ', $args);
+                $output .= "\n" . str_repeat(' ', 20) . "<font color='pink'>(" . implode(', ', $args);
             } else {
-                $output .= "<font color='gray'>".$call['function'].'(';
+                $output .= "<font color='gray'>" . $call['function'] . '(';
             }
 
             $output .= ')</font>';
@@ -230,8 +231,8 @@ class Exception extends \Exception
 
         if ($p = $this->getPrevious()) {
             $output .= "\n\nCaused by Previous Exception:\n";
-            $output .= get_class($p).": <font color='pink'>".$p->getMessage().'</font>'.
-                ($p->getCode() ? ' [code: '.$p->getCode().']' : '');
+            $output .= get_class($p) . ": <font color='pink'>" . $p->getMessage() . '</font>' .
+                ($p->getCode() ? ' [code: ' . $p->getCode() . ']' : '');
         }
 
         // next print params
@@ -256,8 +257,8 @@ class Exception extends \Exception
     public function getHTML()
     {
         $output = '<div class="ui negative icon message"><i class="warning sign icon"></i><div class="content"><div class="header">Fatal Error</div>';
-        $output .= get_class($this).': '.$this->getMessage().
-            ($this->getCode() ? ' <div class="ui small yellow label">Code<div class="detail">'.$this->getCode().'</div></div>' : '');
+        $output .= get_class($this) . ': ' . $this->getMessage() .
+            ($this->getCode() ? ' <div class="ui small yellow label">Code<div class="detail">' . $this->getCode() . '</div></div>' : '');
         $output .= '</div>'; // content
         $output .= '</div>';
 
@@ -268,7 +269,7 @@ class Exception extends \Exception
 
             foreach ($this->params as $key => $val) {
                 $key = str_pad($key, 19, ' ', STR_PAD_LEFT);
-                $output .= '<li><b>'.htmlentities($key).'</b>: '.htmlentities($this->toString($val)).'</li>';
+                $output .= '<li><b>' . htmlentities($key) . '</b>: ' . htmlentities($this->toString($val)) . '</li>';
             }
 
             $output .= '</ul>';
@@ -301,11 +302,11 @@ class Exception extends \Exception
             $line = str_pad(@$call['line'], 4, ' ', STR_PAD_LEFT);
 
             if ($escape_frame) {
-                $output .= "<tr class='negative'><td>".$file;
+                $output .= "<tr class='negative'><td>" . $file;
             } else {
-                $output .= '<tr><td>'.$file;
+                $output .= '<tr><td>' . $file;
             }
-            $output .= ':'.$line.'</td><td>';
+            $output .= ':' . $line . '</td><td>';
 
             if (isset($call['object'])) {
                 $name = (!isset($call['object']->name)) ? get_class($call['object']) : $call['object']->name;
@@ -317,7 +318,7 @@ class Exception extends \Exception
             $output .= '</td><td>';
 
             if (isset($call['class'])) {
-                $output .= $call['class'].'::';
+                $output .= $call['class'] . '::';
             }
 
             if ($escape_frame) {
@@ -329,9 +330,9 @@ class Exception extends \Exception
                     $args[] = $this->toString($arg);
                 }
 
-                $output .= "</td></tr><tr class='negative'><td colspan=2></td><td> (".str_repeat(' ', 20).implode(', ', $args).')';
+                $output .= "</td></tr><tr class='negative'><td colspan=2></td><td> (" . str_repeat(' ', 20) . implode(', ', $args) . ')';
             } else {
-                $output .= $call['function'].'()';
+                $output .= $call['function'] . '()';
             }
 
             $output .= '</td></tr>';
@@ -351,8 +352,8 @@ class Exception extends \Exception
                 //($p->getCode() ? ' [code: '.$p->getCode().']' : '');
 
                 $output .= '<div class="ui negative icon message"><i class="warning sign icon"></i><div class="content"><div class="header">Fatal Error</div>';
-                $output .= get_class($p).': '.$p->getMessage().
-                    ($p->getCode() ? ' <div class="ui small yellow label">Code<div class="detail">'.$p->getCode().'</div></div>' : '');
+                $output .= get_class($p) . ': ' . $p->getMessage() .
+                    ($p->getCode() ? ' <div class="ui small yellow label">Code<div class="detail">' . $p->getCode() . '</div></div>' : '');
                 $output .= '</div>'; // content
                 $output .= '</div>';
             }
@@ -374,10 +375,10 @@ class Exception extends \Exception
     {
         if (is_object($val) && !$val instanceof \Closure) {
             if (isset($val->_trackableTrait)) {
-                return get_class($val).' ('.$val->name.')';
+                return get_class($val) . ' (' . $val->name . ')';
             }
 
-            return 'Object '.get_class($val);
+            return 'Object ' . get_class($val);
         }
 
         return json_encode($val);

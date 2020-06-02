@@ -227,7 +227,7 @@ class ContainerAppMock
             }
 
             $l = $d[$l];
-            $n = $l.$r;
+            $n = $l . $r;
         }
     }
 }

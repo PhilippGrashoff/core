@@ -23,7 +23,7 @@ class DynamicMethodTraitTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(true, $m->hasMethod('test'));
 
-        $res = 'Hello, '.$m->test();
+        $res = 'Hello, ' . $m->test();
         $this->assertEquals('Hello, world', $res);
     }
 
