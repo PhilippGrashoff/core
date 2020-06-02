@@ -210,7 +210,7 @@ class FactoryTestAppMock
     public function normalizeClassNameApp($name, $prefix)
     {
         if ($prefix == 'atk4\test') {
-            return 'atk4\mytest\\'.$name;
+            return 'atk4\mytest\\' . $name;
         }
     }
 }
