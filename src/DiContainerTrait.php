@@ -50,6 +50,12 @@ trait DiContainerTrait
     public function setDefaults(array $properties, bool $passively = false)
     {
         foreach ($properties as $key => $val) {
+            if (is_numeric($key)) {
+                $this->setMissingProperty($key, $val);
+
+                continue;
+            }
+
             $getterName = 'get' . ucfirst($key);
             $setterName = 'set' . ucfirst($key);
             $setterExists = method_exists($this, $setterName);
