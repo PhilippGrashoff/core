@@ -47,23 +47,23 @@ trait CollectionTrait
         $this->{$collection}[$name] = $item;
 
         // Carry on reference to application if we have appScopeTraits set
-        if (isset($this->_appScopeTrait) && isset($item->_appScopeTrait)) {
+        if (TraitUtil::hasAppScopeTrait($this) && TraitUtil::hasAppScopeTrait($item)) {
             $item->app = $this->app;
         }
 
         // Calculate long "name" but only if both are trackables
-        if (isset($item->_trackableTrait)) {
+        if (TraitUtil::hasTrackableTrait($item)) {
             $item->short_name = $name;
             if ($item->owner !== null) {
                 throw new Exception('Element owner is already set');
             }
             $item->owner = $this;
-            if (isset($this->_trackableTrait)) {
+            if (TraitUtil::hasTrackableTrait($this)) {
                 $item->name = $this->_shorten_ml($this->name . '-' . $collection . '_' . $name);
             }
         }
 
-        if (isset($item->_initializerTrait)) {
+        if (TraitUtil::hasInitializerTrait($item)) {
             if (!$item->_initialized) {
                 $item->invokeInit();
             }
@@ -156,8 +156,6 @@ trait CollectionTrait
 
                     public function shorten(?object $app, string $desired): string
                     {
-                        $this->_appScopeTrait = $app !== null;
-
                         try {
                             $this->app = $app;
 
@@ -172,6 +170,6 @@ trait CollectionTrait
             return $factory->collectionTraitHelper;
         }, null, Factory::class)();
 
-        return $collectionTraitHelper->shorten($this->_appScopeTrait ? $this->app : null, $desired);
+        return $collectionTraitHelper->shorten(TraitUtil::hasAppScopeTrait($this) ? $this->app : null, $desired);
     }
 }

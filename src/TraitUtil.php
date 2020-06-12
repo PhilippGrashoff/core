@@ -50,4 +50,85 @@ final class TraitUtil
 
         return self::$_hasTraitMap[$class][$traitName];
     }
+
+    /*
+     * ConfigTrait - not used
+     * DebugTrait - not used
+     * DynamicMethodTrait - not used
+     * FactoryTrait - not used
+     * StaticAddToTrait - not used
+     * TranslatableTrait - not used
+     *
+     * QuickExceptionTrait - QuickException will be removed, not used outside QuickException class
+     */
+
+    /**
+     * @param object|string $class
+     */
+    public static function hasAppScopeTrait(object $class): bool
+    {
+        return self::hasTrait($class, AppScopeTrait::class);
+    }
+
+    /**
+     * @param object|string $class
+     */
+    public static function hasContainerTrait(object $class): bool
+    {
+        return self::hasTrait($class, ContainerTrait::class);
+    }
+
+    /**
+     * Used in Factory and in ui/View only.
+     *
+     * @param object|string $class
+     */
+    public static function hasDIContainerTrait(object $class): bool
+    {
+        return self::hasTrait($class, DIContainerTrait::class);
+    }
+
+    /**
+     * Used in DynamicMethodTrait only.
+     *
+     * @param object|string $class
+     */
+    public static function hasHookTrait(object $class): bool
+    {
+        return self::hasTrait($class, HookTrait::class);
+    }
+
+    /**
+     * @param object|string $class
+     */
+    public static function hasInitializerTrait(object $class): bool
+    {
+        return self::hasTrait($class, InitializerTrait::class);
+    }
+
+    /**
+     * @param object|string $class
+     */
+    public static function hasNameTrait(object $class): bool
+    {
+        return self::hasTrait($class, NameTrait::class);
+    }
+
+    /**
+     * Used in ui\TableColumn\FilterModel\Generic only.
+     *
+     * @param object|string $class
+     */
+    public static function hasSessionTrait(object $class): bool
+    {
+        return self::hasTrait($class, SessionTrait::class);
+    }
+
+    /**
+     * @param object|string $class
+     */
+    public static function hasTrackableTrait(object $class): bool
+    {
+        return self::hasTrait($class, TrackableTrait::class);
+    }
 }

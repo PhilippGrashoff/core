@@ -105,7 +105,7 @@ abstract class RendererAbstract
         if ($val instanceof \Closure) {
             return 'closure';
         } elseif (is_object($val)) {
-            return get_class($val) . (isset($val->_trackableTrait) ? ' (' . $val->name . ')' : '');
+            return get_class($val) . (\atk4\core\TraitUtil::hasTrackableTrait($val) ? ' (' . $val->name . ')' : '');
         } elseif (is_resource($val)) {
             return 'resource';
         } elseif (is_scalar($val) || $val === null) {
