@@ -50,13 +50,21 @@ trait DiContainerTrait
     public function setDefaults(array $properties, bool $passively = false)
     {
         foreach ($properties as $key => $val) {
-            if (property_exists($this, $key)) {
-                if ($passively && $this->{$key} !== null) {
+            $getterName = 'get' . ucfirst($key);
+            $setterName = 'set' . ucfirst($key);
+            $setterExists = method_exists($this, $setterName);
+
+            if ($setterExists || property_exists($this, $key)) {
+                if ($passively && ($setterExists ? $this->{$getterName}() : $this->{$key}) !== null) {
                     continue;
                 }
 
                 if ($val !== null) {
-                    $this->{$key} = $val;
+                    if ($setterExists) {
+                        $this->{$setterName}($val);
+                    } else {
+                        $this->{$key} = $val;
+                    }
                 }
             } else {
                 $this->setMissingProperty($key, $val);
