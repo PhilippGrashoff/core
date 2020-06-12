@@ -14,13 +14,6 @@ trait TrackableTrait
     use NameTrait;
 
     /**
-     * Check this property to see if trait is present in the object.
-     *
-     * @var bool
-     */
-    public $_trackableTrait = true;
-
-    /**
      * Link to (parent) object into which we added this object.
      *
      * @var object

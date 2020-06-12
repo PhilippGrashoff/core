@@ -7,13 +7,6 @@ namespace atk4\core;
 trait HookTrait
 {
     /**
-     * Check this property to see if trait is present in the object.
-     *
-     * @var bool
-     */
-    public $_hookTrait = true;
-
-    /**
      * Contains information about configured hooks (callbacks).
      *
      * @var array

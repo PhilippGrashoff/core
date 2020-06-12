@@ -11,13 +11,6 @@ namespace atk4\core;
 trait DynamicMethodTrait
 {
     /**
-     * Check this property to see if trait is present in the object.
-     *
-     * @var bool
-     */
-    public $_dynamicMethodTrait = true;
-
-    /**
      * Magic method - tries to call dynamic method and throws exception if
      * this was not possible.
      *

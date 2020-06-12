@@ -15,13 +15,6 @@ namespace atk4\core;
 trait AppScopeTrait
 {
     /**
-     * Check this property to see if trait is present in the object.
-     *
-     * @var bool
-     */
-    public $_appScopeTrait = true;
-
-    /**
      * Always points to current Application.
      *
      * @var \atk4\ui\App
