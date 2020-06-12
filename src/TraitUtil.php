@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace atk4\core;
 
+// !!! INTENDED TO BE REMOVED LATER - ONLY FOR TRAIT IDENTIFICATION PROPERTIES TO INTERFACES MIGRATION !!!
+
 final class TraitUtil
 {
     /** @var bool[className][traitName] */
