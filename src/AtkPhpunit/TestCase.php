@@ -9,6 +9,13 @@ namespace atk4\core\AtkPhpunit;
  */
 class TestCase extends \PHPUnit\Framework\TestCase
 {
+    public function runBare(): void
+    {
+        for ($i = 0; $i < 20; ++$i) {
+            parent::runBare();
+        }
+    }
+
     /**
      * Calls protected method.
      *
