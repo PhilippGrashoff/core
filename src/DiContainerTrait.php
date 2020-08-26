@@ -49,31 +49,48 @@ trait DiContainerTrait
      */
     public function setDefaults(array $properties, bool $passively = false)
     {
-        foreach ($properties as $key => $val) {
-            if (is_numeric($key)) {
-                $this->setMissingProperty($key, $val);
+        foreach ($properties as $name => $val) {
+            if (is_int($name)) {
+                $this->setMissingProperty($name, $val);
 
                 continue;
             }
 
-            $getterName = 'get' . ucfirst($key);
-            $setterName = 'set' . ucfirst($key);
+            $getterName = 'get' . ucfirst($name);
+            $setterName = 'set' . ucfirst($name);
+
             $setterExists = method_exists($this, $setterName) && $setterName !== 'setDefaults';
 
-            if ($setterExists || property_exists($this, $key)) {
-                if ($passively && ($setterExists ? $this->{$getterName}() : $this->{$key}) !== null) {
-                    continue;
+            if ($setterExists) { // when setter is declared, getter is expected to be declared too
+                $origValue = $this->{$getterName}();
+            } elseif (property_exists($this, $name)) {
+                $origValue = $this->{$name};
+            } else { // property may be magical
+                $isMissing = true;
+
+                try {
+                    $origValue = ($this->{$name} ?? null);
+                    if ($origValue !== null) {
+                        $isMissing = false;
+                    }
+                } catch (\Exception $e) {
                 }
 
-                if ($val !== null) {
-                    if ($setterExists) {
-                        $this->{$setterName}($val);
-                    } else {
-                        $this->{$key} = $val;
-                    }
+                if ($isMissing) {
+                    $this->setMissingProperty($name, $val);
                 }
-            } else {
-                $this->setMissingProperty($key, $val);
+            }
+
+            if ($passively && $origValue !== null) {
+                continue;
+            }
+
+            if ($val !== null) {
+                if ($setterExists) {
+                    $this->{$setterName}($val);
+                } else {
+                    $this->{$name} = $val;
+                }
             }
         }
 
